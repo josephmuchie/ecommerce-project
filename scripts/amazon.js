@@ -1,11 +1,11 @@
-import {cart,addToCart} from '../data/cart.js';
+import {cart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import { FilterPanel } from './filter-panel.js';
+import { ProductPopup } from './product-popup.js';
 
-let productsHTML = '';
-
-products.forEach((product) => {
-    productsHTML += ` 
-    <div class="product-container">
+function generateProductHTML(product) {
+  return `
+    <div class="product-container js-product-card" data-product-id="${product.id}">
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}">
@@ -55,26 +55,89 @@ products.forEach((product) => {
             Add to Cart
           </button>
         </div>`
-});
-
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
-
-function updateCartQuantity() {
-    let cartQuantity = 0;
-
-    cart.forEach((cartItem) => {
-        cartQuantity += cartItem.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity;
 }
 
-document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-    button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
+function updateAddToCartUI(button) {
+  const container = button.closest('.product-container');
+  const addedMessage = container.querySelector('.added-to-cart');
+  
+  addedMessage.classList.add('show');
+  setTimeout(() => addedMessage.classList.remove('show'), 2000);
+}
 
-        addToCart(productId);
-        updateCartQuantity();
+function updateCartQuantityUI() {
+  const cartQuantity = document.querySelector('.js-cart-quantity');
+  if (cartQuantity) {
+    const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+    cartQuantity.textContent = totalItems;
+    cartQuantity.style.display = totalItems > 0 ? 'block' : 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Generate and populate products
+  let productsHTML = '';
+  products.forEach((product) => {
+      productsHTML += generateProductHTML(product);
+  });
+  document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+  // Initialize components
+  new FilterPanel();
+  const popup = new ProductPopup(cart);
+
+  // Update initial cart quantity
+  updateCartQuantityUI();
+
+  // Set up event listeners
+  document.querySelectorAll('.js-product-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const productId = card.dataset.productId;
+      const product = products.find(p => p.id === productId);
+      popup.showPopup(product);
     });
+  });
+
+  // Set up cart event listeners
+  document.querySelectorAll('.js-add-to-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent product popup from opening
+      const productId = button.dataset.productId;
+      const quantitySelect = button.closest('.product-container')
+        .querySelector('.product-quantity-container select');
+      const quantity = parseInt(quantitySelect.value);
+      
+      // Add to cart with selected quantity at once
+      cart.addToCart(productId, quantity); // Modified to pass quantity
+      
+      updateAddToCartUI(button);
+      updateCartQuantityUI();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const cartItem = e.target.closest('.cart-item');
+    if (!cartItem) return;
+
+    const itemId = cartItem.dataset.productId; // Changed from dataset.id
+    
+    if (e.target.classList.contains('plus')) {
+        cart.updateQuantity(itemId, 1);
+        updateCartQuantityUI();
+    } else if (e.target.classList.contains('minus')) {
+        cart.updateQuantity(itemId, -1);
+        updateCartQuantityUI();
+    } else if (e.target.classList.contains('remove-item')) {
+        cart.removeFromCart(itemId);
+        updateCartQuantityUI();
+    }
+  });
+
+  // Add checkout button listener
+  const checkoutButton = document.querySelector('.js-checkout-button');
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', () => {
+      window.location.href = 'checkout.html';
+    });
+  }
 });

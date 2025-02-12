@@ -1,8 +1,9 @@
 .checkout-header {
   height: 60px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 0 20px;
   background-color: white;
+  border-bottom: 1px solid rgb(231, 233, 234);
+  margin-bottom: 30px;
 
   display: flex;
   justify-content: center;
@@ -17,7 +18,8 @@
 .header-content {
   width: 100%;
   max-width: 1100px;
-
+  height: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 }
@@ -49,8 +51,8 @@
   }
 
   .amazon-mobile-logo {
-    display: inline-block;
-    height: 35px;
+    display: block;
+    width: 30px;
     margin-top: 5px;
   }
 }
@@ -60,8 +62,9 @@
   flex-shrink: 0;
   text-align: center;
 
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 500;
+  color: rgb(33, 33, 33);
 
   display: flex;
   justify-content: center;
@@ -69,9 +72,13 @@
 
 .return-to-home-link {
   color: rgb(0, 113, 133);
-  font-size: 23px;
   text-decoration: none;
   cursor: pointer;
+}
+
+.return-to-home-link:hover {
+  color: rgb(199, 81, 31);
+  text-decoration: underline;
 }
 
 @media (max-width: 1000px) {

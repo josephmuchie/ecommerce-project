@@ -43,8 +43,22 @@
       <div class="page-title">Review your order</div>
 
       <div class="checkout-grid">
-        <div class="order-summary 
-        js-order-summary">
+        <div class="order-details">
+          <!-- Cart items container -->
+          <div class="cart-items-container js-cart-items-container">
+            <!-- Cart items will be populated by JavaScript -->
+          </div>
+          
+          <!-- Delivery address section -->
+          <div class="delivery-address">
+            <div class="section-title">Shipping address</div>
+            <div class="address-container">
+              <p>Joseph Muchengeti</p>
+              <p>123 Main Street</p>
+              <p>Apt 4B</p>
+              <p>New York, NY 10001</p>
+            </div>
+          </div>
         </div>
 
         <div class="payment-summary">
@@ -53,31 +67,31 @@
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
-            <div class="payment-summary-money">$42.75</div>
+            <div>Items (<span class="js-items-count">0</span>):</div>
+            <div class="payment-summary-money js-items-total">$0.00</div>
           </div>
 
           <div class="payment-summary-row">
             <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">$4.99</div>
+            <div class="payment-summary-money js-shipping">$0.00</div>
           </div>
 
           <div class="payment-summary-row subtotal-row">
             <div>Total before tax:</div>
-            <div class="payment-summary-money">$47.74</div>
+            <div class="payment-summary-money js-subtotal">$0.00</div>
           </div>
 
           <div class="payment-summary-row">
             <div>Estimated tax (10%):</div>
-            <div class="payment-summary-money">$4.77</div>
+            <div class="payment-summary-money js-tax">$0.00</div>
           </div>
 
           <div class="payment-summary-row total-row">
             <div>Order total:</div>
-            <div class="payment-summary-money">$52.51</div>
+            <div class="payment-summary-money js-total">$0.00</div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
             Place your order
           </button>
         </div>

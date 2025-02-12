@@ -142,15 +142,84 @@
      be invisible. Use JavaScript to change the
      opacity and make it visible. */
   opacity: 0;
+  transition: opacity 0.2s ease;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  gap: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .added-to-cart img {
   height: 20px;
+  width: 16px;
   margin-right: 5px;
+}
+
+.added-to-cart.show {
+  opacity: 1;
 }
 
 .add-to-cart-button {
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+}
+
+.categories-header {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f3f3f3;
+  padding: 10px 0;
+  width: 33.33%;
+  margin: 0 auto;
+}
+
+.category-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.category-link:hover {
+  text-decoration: underline;
+}
+
+.cart-container {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 380px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  display: none; /* Changed from opacity/visibility */
+  z-index: 1000;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.cart-dropdown.show {
+  display: block;
+}
+
+/* Add a hidden area to prevent dropdown from closing when moving cursor to it */
+.cart-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
 }

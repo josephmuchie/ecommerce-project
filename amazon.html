@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/amazon.css">
+    <link rel="stylesheet" href="styles/shared/categories-header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/shared/filter-panel.css">
+    <link rel="stylesheet" href="styles/shared/product-popup.css">
   </head>
   <body>
     <div class="amazon-header">
@@ -50,11 +54,109 @@
         </a>
       </div>
     </div>
-    
-    <div class="main">
+
+    <div class="categories-header">
+      <div class="categories-container">
+        <button class="menu-button">
+          <i class="fas fa-bars"></i>
+          All
+        </button>
+        <nav class="categories-nav">
+          <a href="/electronics" class="category-link">Electronics</a>
+          <a href="/computers" class="category-link">Computers</a>
+          <a href="/smart-home" class="category-link">Smart Home</a>
+          <a href="/arts-crafts" class="category-link">Arts & Crafts</a>
+          <a href="/beauty" class="category-link">Beauty & Personal Care</a>
+          <a href="/fashion" class="category-link">Fashion</a>
+          <a href="/books" class="category-link">Books</a>
+          <a href="/toys" class="category-link">Toys & Games</a>
+          <a href="/health" class="category-link">Health & Household</a>
+          <a href="/automotive" class="category-link">Automotive</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <aside class="filter-panel">
+        <div class="filter-section">
+          <h3 class="filter-title">Department</h3>
+          <div class="filter-options js-department-filters">
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="filter-label">Electronics (245)</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="filter-label">Computers (189)</span>
+            </label>
+            <!-- More departments will be added by JavaScript -->
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-title">Price</h3>
+          <div class="filter-options">
+            <a href="#" class="filter-label">Under $25</a>
+            <a href="#" class="filter-label">$25 to $50</a>
+            <a href="#" class="filter-label">$50 to $100</a>
+            <a href="#" class="filter-label">$100 to $200</a>
+            <a href="#" class="filter-label">$200 & Above</a>
+          </div>
+          <div class="price-range">
+            <input type="number" class="price-input js-min-price" placeholder="$ Min">
+            <input type="number" class="price-input js-max-price" placeholder="$ Max">
+          </div>
+          <button class="apply-button js-apply-price">Go</button>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-title">Customer Review</h3>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="star-rating">★★★★★</span>
+              <span class="filter-label">& Up</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="star-rating">★★★★</span>
+              <span class="filter-label">& Up</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="star-rating">★★★</span>
+              <span class="filter-label">& Up</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-title">Brand</h3>
+          <div class="filter-options js-brand-filters">
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="filter-label">Apple (87)</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" class="filter-checkbox">
+              <span class="filter-label">Samsung (65)</span>
+            </label>
+            <!-- More brands will be added by JavaScript -->
+          </div>
+        </div>
+      </aside>
+
       <div class="products-grid js-products-grid">
+        <!-- Products will be populated here -->
       </div>
     </div>
     <script type="module" src="scripts/amazon.js"></script>
+    <div class="product-popup-overlay js-popup-overlay"></div>
+    <div class="product-popup js-product-popup">
+      <span class="popup-close js-popup-close">&times;</span>
+      <div class="product-detail-container js-product-details">
+        <!-- Product details will be populated by JavaScript -->
+      </div>
+    </div>
   </body>
 </html>
