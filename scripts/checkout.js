@@ -108,6 +108,32 @@ function updateCartItemsCount() {
   }
 }
 
+function updateCart() {
+  const cartItemsCountElement = document.querySelector('.js-cart-items-count');
+  const itemsCountElement = document.querySelector('.js-items-count');
+  const itemsTotalElement = document.querySelector('.js-items-total');
+  const shippingElement = document.querySelector('.js-shipping');
+  const subtotalElement = document.querySelector('.js-subtotal');
+  const taxElement = document.querySelector('.js-tax');
+  const totalElement = document.querySelector('.js-total');
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const itemsCount = cart.reduce((count, item) => count + item.quantity, 0);
+  const itemsTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const shipping = itemsTotal > 0 ? 5.00 : 0.00;
+  const subtotal = itemsTotal + shipping;
+  const tax = subtotal * 0.10;
+  const total = subtotal + tax;
+
+  cartItemsCountElement.textContent = `${itemsCount} items`;
+  itemsCountElement.textContent = itemsCount;
+  itemsTotalElement.textContent = `$${itemsTotal.toFixed(2)}`;
+  shippingElement.textContent = `$${shipping.toFixed(2)}`;
+  subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+  taxElement.textContent = `$${tax.toFixed(2)}`;
+  totalElement.textContent = `$${total.toFixed(2)}`;
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
   updateCheckoutSummary();
@@ -132,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCheckoutSummary();
     initializeCartHeader();
+    updateCartItemsCount(); // Update cart items count in the header
   });
 
   // Handle place order button
@@ -152,5 +179,6 @@ window.addEventListener('storage', (e) => {
   if (e.key === 'cart') {
     updateCheckoutSummary();
     initializeCartHeader();
+    updateCart();
   }
 });
