@@ -93,10 +93,27 @@ function updateCheckoutSummary() {
   });
 }
 
+function loadCartFromLocalStorage() {
+  const savedCart = localStorage.getItem('cart');
+  if (savedCart) {
+    cart.items = JSON.parse(savedCart);
+  }
+}
+
+function updateCartItemsCount() {
+  const cartItemsCount = document.querySelector('.js-cart-items-count');
+  if (cartItemsCount) {
+    const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+    cartItemsCount.textContent = `${totalItems} items`;
+  }
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
   updateCheckoutSummary();
   initializeCartHeader();
+  loadCartFromLocalStorage();
+  updateCartItemsCount();
 
   // Handle cart item interactions
   document.querySelector('.js-cart-items-container')?.addEventListener('click', (event) => {
